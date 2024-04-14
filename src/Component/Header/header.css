@@ -1,0 +1,18 @@
+.header{
+    background-color:#FFFFFF;
+    border-top-left-radius: 40px 40px;
+    width:100%;
+}
+.footer{
+    background-color:#FFFFFF;
+    border-bottom-left-radius: 40px 40px;
+    width:100%;
+    margin-top: 10%;
+}
+.side{
+    background-color:#0B3866;
+}
+.side .active {
+    background-color:  #FE7720;
+    border-radius: 5px;
+}
