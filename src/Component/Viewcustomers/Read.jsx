@@ -1,60 +1,61 @@
-import React, { useState } from "react";
-import { addPost } from '../../Action/auth';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-import "../../App.css";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchCustomerById } from "../../Action/auth";
+import Image from "../../assets/photo/image.svg"
 
-function Basic() {
+function CustomerDetails() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  
-  const [customer, setCustomer] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    firstname: "",
-    lastName: "",
-    alternativephone: "",
-    addline: "",
-    addressline: "",
-    country: "",
-    state: "",
-    city: "",
-    pincode: ""
-  });
+  const { id } = useParams();
 
-  const handleNavigation = () => {
-    navigate('/');
-  };
+  // Local state to hold the customer details
+  const [customer, setCustomer] = useState(null);
+  const [isFetching, setIsFetching] = useState(false); // To track if data is being fetched
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCustomer({ ...customer, [name]: value });
-  };
+  // Fetch customer posts from Redux store
+  const reduxCustomerPosts = useSelector((state) => state.customer?.posts);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addPost(customer));
-    setCustomer({
-      name: "",
-      email: "",
-      phone: "",
-      firstname: "",
-      lastName: "",
-      alternativephone: "",
-      addline: "",
-      addressline: "",
-      country: "",
-      state: "",
-      city: "",
-      pincode: ""
-    });
-  };
+  useEffect(() => {
+    
+    // Check if customer data is already available in Redux store
+    if (Array.isArray(reduxCustomerPosts) && reduxCustomerPosts.length > 0) {
+      const selectedCustomer = reduxCustomerPosts.find((c) => c.id === parseInt(id, 10));
+      console.log("data is available in redux store:", selectedCustomer); // Debugging log
+      
+      if (selectedCustomer) {
+        setCustomer(selectedCustomer);
+        setIsFetching(false);
+        return; // Exit early if data is available
+      }
+    }
+
+    if (!isFetching) {
+      setIsFetching(true);
+       dispatch(fetchCustomerById(id)).then((response) => {
+          if (response.payload) {
+            setCustomer(response.payload);
+          }
+       });
+    }
+  }, [dispatch, id, reduxCustomerPosts, isFetching]);
+
+  if (!customer) {
+    return <div>Loading... customer details are not available</div>;
+  }
+
   return (
     <>
-      <div className="basic">
+
+<div className="basic d-flex">
+    <img src={Image} alt="Logo" className="mb-3 mr-3" style={{ marginRight: "20px" }} />
+    <div className="d-flex flex-column">
+        <h5>{customer.name}</h5>
+        <p> customer id:{ id }</p>
+    </div>
+</div>
+        <div className="basic">
         <h2 className="">Basic Details</h2>
-        <form onSubmit={handleSubmit}>
+        <form >
           <div className="container">
             <div className="row">
               <div className="col-4 mb-5">
@@ -67,9 +68,7 @@ function Basic() {
                   id="customerName"
                   name="name"
                   value={customer.name}
-                  onChange={handleChange}
-                  placeholder="Enter"
-                  required
+                  readOnly
                 />
               </div>
               <div className="col-4">
@@ -82,9 +81,7 @@ function Basic() {
                   id="customerEmail"
                   name="email"
                   value={customer.email}
-                  onChange={handleChange}
-                  placeholder="Enter"
-                  required
+                  readOnly
                 />
               </div>
               <div className="col-4">
@@ -97,9 +94,7 @@ function Basic() {
                   id="customerPhone"
                   name="phone"
                   value={customer.phone}
-                  onChange={handleChange}
-                  placeholder="Enter"
-                  required
+                  readOnly
                 />
               </div>
             </div>
@@ -107,9 +102,10 @@ function Basic() {
         </form>
       </div>
 
-      <div className="basic">
+    {/*  */}
+    <div className="basic">
         <h2 className="mb-5">Address Details</h2>
-        <form onSubmit={handleSubmit}>
+        <form >
           <div className="container">
             <div className="row">
               <div className="col-4 mb-5">
@@ -122,8 +118,7 @@ function Basic() {
                   id="firstname"
                   name="firstname"
                   value={customer.firstname}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  readOnly
                 />
               </div>
               <div className="col-4">
@@ -136,8 +131,7 @@ function Basic() {
                   id="lastName"
                   name="lastName"
                   value={customer.lastName}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                 readOnly
                 />
               </div>
               <div className="col-4">
@@ -150,8 +144,7 @@ function Basic() {
                   id="alternativephone"
                   name="alternativephone"
                   value={customer.alternativephone}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                 readOnly
                 />
               </div>
             </div>
@@ -167,8 +160,7 @@ function Basic() {
                   id="addline"
                   name="addline"
                   value={customer.addline}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  readOnly
                 />
               </div>
               <div className="col-4">
@@ -181,8 +173,7 @@ function Basic() {
                   id="addressline"
                   name="addressline"
                   value={customer.addressline}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  readOnly
                 />
               </div>
               <div className="col-4">
@@ -194,7 +185,7 @@ function Basic() {
                   id="customerCountry"
                   name="country"
                   value={customer.country}
-                  onChange={handleChange}
+                  readOnly
                 >
                   <option value="">Select Country</option>
                   <option value="Ind">India</option>
@@ -214,7 +205,7 @@ function Basic() {
                   id="customerState"
                   name="state"
                   value={customer.state}
-                  onChange={handleChange}
+                  readOnly
                 >
                   <option value="">Select State</option>
                   <option value="AP">Andhra Pradesh</option>
@@ -232,8 +223,7 @@ function Basic() {
                   id="city"
                   name="city"
                   value={customer.city}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  readOnly
                 />
               </div>
               <div className="col-4">
@@ -246,51 +236,15 @@ function Basic() {
                   id="pincode"
                   name="pincode"
                   value={customer.pincode}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  readOnly
                 />
               </div>
             </div>
           </div>
         </form>
       </div>
-    <div className="main">
-
-    <div className="footer p-3 d-flex justify-content-end " style={{ gap: 20 }}>
-    <button
-          style={{
-            backgroundColor: "#FFFFFF",
-            color: "#FE7720",
-            border: "1px solid #FE7720",
-            borderRadius: "10px"
-          }}
-          onClick={handleNavigation}
-        >
-          Go Back
-        </button>
-        <button 
-          type="submit"
-          style={{
-            backgroundColor: "#FE7720",
-            color: "#FFFFFF",
-            border: "none",
-            borderRadius: "10px"
-          }}
-          onClick={handleSubmit}
-        >
-          Save
-        </button>
-      </div>
-    </div>
-
-    
-      
     </>
   );
 }
 
-export default Basic;
-
-
-
-
+export default CustomerDetails;

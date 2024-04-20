@@ -1,60 +1,71 @@
-import React, { useState } from "react";
-import { addPost } from '../../Action/auth';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-import "../../App.css";
+import React, { useEffect, useState, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { fetchCustomerById, updateCustomer } from "../../Action/auth";
 
-function Basic() {
+function CustomerDetails() {
   const dispatch = useDispatch();
+  const { id } = useParams();
   const navigate = useNavigate();
-  
-  const [customer, setCustomer] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    firstname: "",
-    lastName: "",
-    alternativephone: "",
-    addline: "",
-    addressline: "",
-    country: "",
-    state: "",
-    city: "",
-    pincode: ""
-  });
-
   const handleNavigation = () => {
-    navigate('/');
+    navigate("/");
   };
+  const reduxCustomerPosts = useSelector((state) => state.customer?.posts);
+  const selectedCustomer = useMemo(() => {
+    return Array.isArray(reduxCustomerPosts)
+      ? reduxCustomerPosts.find((c) => c.id === parseInt(id, 10))
+      : null;
+  }, [reduxCustomerPosts, id]);
 
-  const handleChange = (e) => {
+  const [customer, setCustomer] = useState(selectedCustomer);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    if (!customer && !isFetching) {
+      setIsFetching(true);
+      if (!selectedCustomer) {
+        dispatch(fetchCustomerById(id)).then((response) => {
+          if (response.payload) {
+            setCustomer(response.payload);
+          }
+          setIsFetching(false);
+        });
+      } else {
+        setCustomer(selectedCustomer);
+        setIsFetching(false);
+      }
+    }
+  }, [dispatch, id, selectedCustomer, customer, isFetching]);
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCustomer({ ...customer, [name]: value });
+    setCustomer((prevCustomer) => ({
+      ...prevCustomer,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addPost(customer));
-    setCustomer({
-      name: "",
-      email: "",
-      phone: "",
-      firstname: "",
-      lastName: "",
-      alternativephone: "",
-      addline: "",
-      addressline: "",
-      country: "",
-      state: "",
-      city: "",
-      pincode: ""
-    });
+  const handleUpdate = () => {
+    dispatch(updateCustomer(customer))
+      .then(() => {
+        // Handle success here, for example:
+        
+      })
+      .catch((error) => {
+        // Handle error here
+        console.error("Error updating customer:", error);
+      });
   };
+
+  if (!customer) {
+    return <div>Loading... customer details are not available</div>;
+  }
+
   return (
     <>
       <div className="basic">
         <h2 className="">Basic Details</h2>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="container">
             <div className="row">
               <div className="col-4 mb-5">
@@ -67,9 +78,7 @@ function Basic() {
                   id="customerName"
                   name="name"
                   value={customer.name}
-                  onChange={handleChange}
-                  placeholder="Enter"
-                  required
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-4">
@@ -82,9 +91,7 @@ function Basic() {
                   id="customerEmail"
                   name="email"
                   value={customer.email}
-                  onChange={handleChange}
-                  placeholder="Enter"
-                  required
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-4">
@@ -97,9 +104,7 @@ function Basic() {
                   id="customerPhone"
                   name="phone"
                   value={customer.phone}
-                  onChange={handleChange}
-                  placeholder="Enter"
-                  required
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -107,9 +112,10 @@ function Basic() {
         </form>
       </div>
 
+      {/*  */}
       <div className="basic">
         <h2 className="mb-5">Address Details</h2>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="container">
             <div className="row">
               <div className="col-4 mb-5">
@@ -122,8 +128,7 @@ function Basic() {
                   id="firstname"
                   name="firstname"
                   value={customer.firstname}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-4">
@@ -136,8 +141,7 @@ function Basic() {
                   id="lastName"
                   name="lastName"
                   value={customer.lastName}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-4">
@@ -150,8 +154,7 @@ function Basic() {
                   id="alternativephone"
                   name="alternativephone"
                   value={customer.alternativephone}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -167,8 +170,7 @@ function Basic() {
                   id="addline"
                   name="addline"
                   value={customer.addline}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-4">
@@ -181,8 +183,7 @@ function Basic() {
                   id="addressline"
                   name="addressline"
                   value={customer.addressline}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-4">
@@ -194,7 +195,7 @@ function Basic() {
                   id="customerCountry"
                   name="country"
                   value={customer.country}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 >
                   <option value="">Select Country</option>
                   <option value="Ind">India</option>
@@ -214,7 +215,7 @@ function Basic() {
                   id="customerState"
                   name="state"
                   value={customer.state}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 >
                   <option value="">Select State</option>
                   <option value="AP">Andhra Pradesh</option>
@@ -232,8 +233,7 @@ function Basic() {
                   id="city"
                   name="city"
                   value={customer.city}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="col-4">
@@ -246,51 +246,50 @@ function Basic() {
                   id="pincode"
                   name="pincode"
                   value={customer.pincode}
-                  onChange={handleChange}
-                  placeholder="Enter"
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
           </div>
         </form>
       </div>
-    <div className="main">
 
-    <div className="footer p-3 d-flex justify-content-end " style={{ gap: 20 }}>
-    <button
-          style={{
-            backgroundColor: "#FFFFFF",
-            color: "#FE7720",
-            border: "1px solid #FE7720",
-            borderRadius: "10px"
-          }}
-          onClick={handleNavigation}
+      {/*  */}
+      <div className="main">
+        <div
+          className="footer p-3 d-flex justify-content-end "
+          style={{ gap: 20 }}
         >
-          Go Back
-        </button>
-        <button 
-          type="submit"
-          style={{
-            backgroundColor: "#FE7720",
-            color: "#FFFFFF",
-            border: "none",
-            borderRadius: "10px"
-          }}
-          onClick={handleSubmit}
-        >
-          Save
-        </button>
+          <button
+            style={{
+              backgroundColor: "#FFFFFF",
+              color: "#FE7720",
+              border: "1px solid #FE7720",
+              borderRadius: "10px",
+            }}
+            onClick={handleNavigation}
+          >
+            Go Back
+          </button>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#FE7720",
+              color: "#FFFFFF",
+              border: "none",
+              borderRadius: "10px",
+            }}
+            onClick={() => {
+              handleUpdate();
+              handleNavigation();
+            }}
+          >
+            Update
+          </button>
+        </div>
       </div>
-    </div>
-
-    
-      
     </>
   );
 }
 
-export default Basic;
-
-
-
-
+export default CustomerDetails;
