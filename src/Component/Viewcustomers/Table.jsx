@@ -53,7 +53,11 @@ function Table() {
         <div className="mt-5 container  d-flex justify-content-end">
           <form>
             <input
-              style={{ border: "transparent", borderRadius: "10px", height:"44px" }}
+              style={{
+                border: "transparent",
+                borderRadius: "10px",
+                height: "44px",
+              }}
               type="text"
               id="search"
               name="search"
@@ -74,11 +78,11 @@ function Table() {
         </div>
         <div className="basic">
           <table className="table">
-            <thead
-              
-            >
-              <tr className="table-secondary"
-              style={{ border: "transparent", borderRadius: "5px" }}>
+            <thead>
+              <tr
+                className="table-secondary"
+                style={{ border: "transparent", borderRadius: "5px" }}
+              >
                 <th>Name</th>
                 <th>Phone Number</th>
                 <th>Email</th>
@@ -89,42 +93,45 @@ function Table() {
             </thead>
 
             <tbody>
-          {Array.isArray(posts) && posts.length > 0 ? (
-            posts.map((customer) => (
-              <tr key={customer.id}>
-                <td>{customer.name}</td>
-                <td>{customer.phone}</td>
-                <td>{customer.email}</td>
-                <td>{customer.country}</td>
-                <td>{customer.state}</td>
-                <td>
-                  <img
-                    src={View}
-                    alt="View"
-                    className="action-icon"
-                    onClick={() => handleReadPost(customer.id)}
-                  />
-                  <img
-                    src={Edit}
-                    alt="Edit"
-                    className="action-icon"
-                    onClick={() => handleEditPost(customer.id)}
-                  />
-                  <img
-                    src={Trash}
-                    alt="Delete"
-                    className="action-icon"
-                    onClick={() => handleDelete(customer.id)}
-                  />
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="6">No records found</td>
-            </tr>
-          )}
-        </tbody>
+              {Array.isArray(posts) && posts.length > 0 ? (
+                posts.map((customer) => (
+                  <tr key={customer.id}>
+                    <td>{customer.name}</td>
+                    <td>{customer.phone}</td>
+                    <td>{customer.email}</td>
+                    <td>{customer.country}</td>
+                    <td>{customer.state}</td>
+                    <td>
+                      <img
+                        src={View}
+                        alt="View"
+                        style={{ cursor: "pointer", marginRight: "10px" }}
+                        className="action-icon"
+                        onClick={() => handleReadPost(customer.id)}
+                      />
+                      <img
+                        src={Edit}
+                        alt="Edit"
+                        style={{ cursor: "pointer", marginRight: "10px" }}
+                        className="action-icon"
+                        onClick={() => handleEditPost(customer.id)}
+                      />
+                      <img
+                        src={Trash}
+                        alt="Delete"
+                        style={{ cursor: "pointer" }}
+                        className="action-icon"
+                        onClick={() => handleDelete(customer.id)}
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">No records found</td>
+                </tr>
+              )}
+            </tbody>
             {showPopup && (
               <div
                 className="modal show"

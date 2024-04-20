@@ -276,6 +276,7 @@ function Basic() {
             border: "none",
             borderRadius: "10px"
           }}
+          
           onClick={handleSubmit}
         >
           Save

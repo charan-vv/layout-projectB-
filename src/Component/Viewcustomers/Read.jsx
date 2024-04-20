@@ -20,7 +20,7 @@ function CustomerDetails() {
     // Check if customer data is already available in Redux store
     if (Array.isArray(reduxCustomerPosts) && reduxCustomerPosts.length > 0) {
       const selectedCustomer = reduxCustomerPosts.find((c) => c.id === parseInt(id, 10));
-      console.log("data is available in redux store:", selectedCustomer); // Debugging log
+      
       
       if (selectedCustomer) {
         setCustomer(selectedCustomer);
