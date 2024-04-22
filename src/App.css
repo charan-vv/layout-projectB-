@@ -3,7 +3,9 @@
 .main {
     background-color: #0B3866;
     width: 100%;
+    /* position: fixed; */
 }
+
 
 .section {
     background-color: gainsboro;

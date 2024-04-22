@@ -8,6 +8,7 @@ import Trash from "../../assets/photo/Trash.svg";
 import Add from "../../assets/photo/add.svg";
 import Close from "../../assets/photo/close.svg"; // Import the cancel image
 import "../Addcustomer/customer.css";
+import Search from "../../assets/photo/search.svg";
 
 function Table() {
   const dispatch = useDispatch();
@@ -24,13 +25,12 @@ function Table() {
     navigate("/details");
   };
   const handleEditPost = (id) => {
-    navigate(`/edit/${id}`);
+    navigate(`/details/${id}`, { state: { isUpdateMode: true } });
   };
 
   const handleReadPost = (id) => {
-    navigate(`/details/${id}`);
+    navigate(`/details/${id}`, { state: { isViewMode: true } });
   };
-
   const handleDelete = (id) => {
     setSelectedCustomerId(id); // Set the selected customer ID
     setShowPopup(true); // Show the popup
@@ -49,48 +49,41 @@ function Table() {
 
   return (
     <>
-      <div>
+      <div className="">
         <div className="mt-5 container  d-flex justify-content-end">
           <form>
-            <input
-              style={{
-                border: "transparent",
-                borderRadius: "10px",
-                height: "44px",
-              }}
-              type="text"
-              id="search"
-              name="search"
-              placeholder="Search"
-            />
-            <button
-              style={{
-                backgroundColor: "#FFFFFF",
-                color: "#FE7720",
-                border: "1px solid #FE7720",
-                borderRadius: "10px",
-                marginLeft: "10px",
-              }}
-            >
-              Export CSV
-            </button>
+            <div className="input">
+              <img src={Search} />
+              <input type="text" placeholder="Search" />
+              <button
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  color: "#FE7720",
+                  border: "1px solid #FE7720",
+                  borderRadius: "10px",
+                  marginLeft: "10px",
+                }}
+              >
+                Export CSV
+              </button>
+            </div>
           </form>
         </div>
-        <div className="basic">
-          <table className="table">
+        <div className="container basic  mt-3">
+          <table className="table ">
             <thead>
               <tr
                 className="table-secondary"
-                style={{ border: "transparent", borderRadius: "5px" }}
               >
-                <th>Name</th>
+                <th style={{ borderTopLeftRadius: "9px" ,borderBottomLeftRadius:"9px"}}>Name</th>
                 <th>Phone Number</th>
                 <th>Email</th>
                 <th>Country</th>
                 <th>State</th>
-                <th>Actions</th>
+                <th style={{ borderTopRightRadius: "9px",borderBottomRightRadius:"9px" }}>Actions</th>
               </tr>
             </thead>
+            {/* Add your table body and rows here */}
 
             <tbody>
               {Array.isArray(posts) && posts.length > 0 ? (

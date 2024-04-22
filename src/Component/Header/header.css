@@ -1,13 +1,21 @@
 .header{
-    background-color:#FFFFFF;
+    background-color:#ffffff;
     border-top-left-radius: 40px 40px;
     width:100%;
+
 }
 .footer{
     background-color:#FFFFFF;
     border-bottom-left-radius: 40px 40px;
     width:100%;
     margin-top: 10%;
+    /* position:fixed; */
+}
+.footerbg {
+    background-color: #0B3866;
+    width: 100%;
+    
+    /* position: fixed; */
 }
 .side{
     background-color:#0B3866;

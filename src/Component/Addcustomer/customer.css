@@ -12,6 +12,19 @@ button{
   width: 120px;
   height:44px
 }
-
+.input{
+  position:relative;
+ 
+  img{
+    position:absolute;
+    top: 14px;
+    left:2px;
+  }
+  input{
+    padding-left: 20px;
+    border-radius: 10px;
+    border-color:transparent;
+  }
+}
 
     
