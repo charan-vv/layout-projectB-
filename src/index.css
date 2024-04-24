@@ -1,2 +1,7 @@
 
 
+body {
+    font-family: 'Fredoka';
+    height: 100vh;
+    background-color: gainsboro;
+}

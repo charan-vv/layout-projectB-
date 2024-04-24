@@ -1,0 +1,9 @@
+.Login{
+    color:white;
+    text-align: center;
+    .Logbtn{
+        background-color: #FE7720;
+        width: 322px;
+        color: white;
+    }
+}

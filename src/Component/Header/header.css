@@ -11,14 +11,10 @@
     margin-top: 10%;
     /* position:fixed; */
 }
-.footerbg {
-    background-color: #0B3866;
-    width: 100%;
-    
-    /* position: fixed; */
-}
+
 .side{
     background-color:#0B3866;
+    width:80px;
 }
 .side .active {
     background-color:  #FE7720;

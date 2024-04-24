@@ -20,101 +20,101 @@ function Sidebar() {
     };
 
     return (
-        <div className="side d-flex flex-column p-3" style={{ gap: 45 }}>
+        <div className="side d-flex flex-column p-4" style={{ gap: 21 }}>
             <img
                 className={activeItem === "Logo" ? "active" : ""} 
                 src={Logo}
                 alt="logo"
-                width={40}
-                height={40}
+                width={35}
+                height={35}
                 onClick={() => handleItemClick("Logo")}
             />
             <img
                 className={activeItem === "Home" ? "active" : ""}
                 src={Home}
                 alt="home"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Home")}
             />
             <img
                 className={activeItem === "Product" ? "active" : ""}
                 src={Product}
                 alt="product"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Product")}
             />
             <img
                 className={activeItem === "Cart" ? "active" : ""}
                 src={Cart}
                 alt="cart"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Cart")}
             />
             <img
                 className={activeItem === "Offer" ? "active" : ""}
                 src={Offer}
                 alt="offer"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Offer")}
             />
             <img
                 className={activeItem === "Profile" ? "active" : ""}
                 src={Profile}
                 alt="profile"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Profile")}
             />
              <img
                 className={activeItem === "Home" ? "active" : ""}
                 src={Home}
                 alt="home"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Home")}
             />
             <img
                 className={activeItem === "Preference" ? "active" : ""}
                 src={Preference}
                 alt="set preferences"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Preference")}
             />
             <img
                 className={activeItem === "Support" ? "active" : ""}
                 src={Support}
                 alt="Support"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Support")}
             />
             <img
                 className={activeItem === "Report" ? "active" : ""}
                 src={Report}
                 alt="report"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Report")}
             />
             <img
                 className={activeItem === "Settings" ? "active" : ""}
                 src={Settings}
                 alt="Settings"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Settings")}
             />
             <img
                 className={activeItem === "Logout" ? "active" : ""}
                 src={Logout}
                 alt="Logout"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
                 onClick={() => handleItemClick("Logout")}
             />
         </div>
