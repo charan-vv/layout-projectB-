@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchPosts, deletePost } from "../../../Redux/Action/auth";
+import { fetchPosts, deletePost } from "../../Redux/Action/auth";
 import View from "../../assets/photo/View.svg";
 import Edit from "../../assets/photo/Edit.svg";
 import Trash from "../../assets/photo/Trash.svg";
 import Add from "../../assets/photo/add.svg";
 import Close from "../../assets/photo/close.svg";
-import "../Addcustomer/customer.css";
+import "../../Pages/Addcustomer/customer.css";
 import Search from "../../assets/photo/search.svg";
-import Pagination from "../Pagination/Pagination";
+import Pagination from "../../Component/Pagination/pagination";
 
 function Table() {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function Table() {
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = posts.slice(indexOfFirstRecord, indexOfLastRecord);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -52,15 +52,21 @@ function Table() {
     setSelectedCustomerId(null);
   };
 
-  const handleConfirmDelete = () => {
-    dispatch(deletePost(selectedCustomerId));
-    setShowPopup(false);
-    setTimeout(() => {
-      dispatch(fetchPosts());
-    }, 1000);
-    setSelectedCustomerId(null);
+  const handleConfirmDelete = async () => {
+    setShowPopup(true); // Show the popup
+    
+    try {
+      await dispatch(deletePost(selectedCustomerId)); // Wait for the delete action to complete
+      setTimeout(() => {
+        dispatch(fetchPosts()); // Fetch the updated posts
+      }, 10);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    } finally {
+      setShowPopup(false); // Close the popup
+      setSelectedCustomerId(null); // Reset selectedCustomerId
+    }
   };
-
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -140,19 +146,21 @@ function Table() {
                 </tr>
               )}
               {/*  */}
-              <tr>
-                <td colSpan="6">
+              {/* <tr> */}
+               
+              {/* </tr> */}
+              {/*  */}
+            </tbody>
+             <td colSpan="6">
                   <Pagination
                     posts={posts}
                     currentPage={currentPage}
                     recordsPerPage={recordsPerPage}
                     handlePageClick={handlePageClick}
                     setCurrentPage={setCurrentPage}
+                    setRecordsPerPage={setRecordsPerPage}
                   />
                 </td>
-              </tr>
-              {/*  */}
-            </tbody>
           </table>
         </div>
         {showPopup && (

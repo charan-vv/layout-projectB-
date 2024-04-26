@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/photo/Logo.svg";
 import Cart from "../../assets/photo/cart.svg";
 import Home from "../../assets/photo/HOME MENU.svg";
@@ -14,7 +15,15 @@ import "./header.css";
 
 function Sidebar() {
     const [activeItem, setActiveItem] = useState(null);
+    const navigate = useNavigate();
 
+    const handleLogout = () => {
+        // Remove the token from localStorage
+        localStorage.removeItem("user");
+        console.log("clear local storage",localStorage.removeItem("user"));
+        // Navigate to the root path ("/")
+        navigate("/");
+      };
     const handleItemClick = (item) => {
         setActiveItem(item);
     };
@@ -26,8 +35,10 @@ function Sidebar() {
                 src={Logo}
                 alt="logo"
                 width={35}
+                
                 height={35}
                 onClick={() => handleItemClick("Logo")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Home" ? "active" : ""}
@@ -36,6 +47,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Home")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Product" ? "active" : ""}
@@ -44,6 +56,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Product")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Cart" ? "active" : ""}
@@ -52,6 +65,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Cart")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Offer" ? "active" : ""}
@@ -60,6 +74,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Offer")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Profile" ? "active" : ""}
@@ -68,6 +83,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Profile")}
+                style={{cursor:"pointer"}}
             />
              <img
                 className={activeItem === "Home" ? "active" : ""}
@@ -76,6 +92,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Home")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Preference" ? "active" : ""}
@@ -84,6 +101,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Preference")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Support" ? "active" : ""}
@@ -92,6 +110,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Support")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Report" ? "active" : ""}
@@ -100,6 +119,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Report")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Settings" ? "active" : ""}
@@ -108,6 +128,7 @@ function Sidebar() {
                 width={25}
                 height={25}
                 onClick={() => handleItemClick("Settings")}
+                style={{cursor:"pointer"}}
             />
             <img
                 className={activeItem === "Logout" ? "active" : ""}
@@ -115,7 +136,8 @@ function Sidebar() {
                 alt="Logout"
                 width={25}
                 height={25}
-                onClick={() => handleItemClick("Logout")}
+                onClick={handleLogout}
+                style={{cursor:"pointer"}}
             />
         </div>
     );
