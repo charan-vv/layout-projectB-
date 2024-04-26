@@ -65,7 +65,7 @@ function MyComponent() {
     
 
   const handleNavigation = () => {
-    navigate("/register");
+    navigate("/table");
   };
 
   const validateForm = () => {
@@ -198,6 +198,7 @@ function MyComponent() {
                 style={{
                   borderColor: "transparent",
                   borderRadius: "5px",
+                  onClick:{handleNavigation},
                 }}
                 type="submit"
               >
