@@ -19,14 +19,14 @@ function MyComponent() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("user");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("user");
     
-    if (token) {
-      // Redirect to root path if token exists
-      !navigate("/")||!navigate("/register");
-    }
-  }, [navigate]);
+  //   if (token) {
+  //     // Redirect to root path if token exists
+  //     !navigate("/")||!navigate("/register");
+  //   }
+  // }, [navigate]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -40,52 +40,53 @@ function MyComponent() {
     });
   };
 
-  const handleNavigationTo = (e) => {
-    e.preventDefault();
+  const handleNavigationTo = () => {
+    navigate("/table");
+    }
   
     // Assuming formData and dispatch are defined in the component
-    if (validateForm()) {
-      dispatch(userLogin(formData))
-        .then((res) => {
-          if (res.payload && res.payload.token) {
-            console.log("User logged in successfully",res.payload && res.payload.token);
-            localStorage.setItem('user', res.payload.token);
-            console.log("token", res.payload.token);
-            navigate("/table");
-          } else {
-            console.error("Invalid credentials");
-            // Handle the invalid credentials scenario, e.g., show an error message to the user
-          }
-        })
-        .catch((error) => {
-          console.error("Error logging in:", error);
-        });
-    }
-  }
+  //   if (validateForm()) {
+  //     dispatch(userLogin(formData))
+  //       .then(() => {
+  //         // if (res.payload && res.payload.token) {
+  //         //   console.log("User logged in successfully",res.payload && res.payload.token);
+  //         //   localStorage.setItem('user', res.payload.token);
+  //         //   console.log("token", res.payload.token);
+  //         //   navigate("/table");
+  //         // } else {
+  //         //   console.error("Invalid credentials");
+  //         //   // Handle the invalid credentials scenario, e.g., show an error message to the user
+  //         // }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error logging in:", error);
+  //       });
+  //   }
+  // }
     
 
   const handleNavigation = () => {
-    navigate("/table");
+    navigate("/register");
   };
 
-  const validateForm = () => {
-    let valid = true;
-    let newErrors = {};
+  // const validateForm = () => {
+  //   let valid = true;
+  //   let newErrors = {};
 
-    if (!formData.login) {
-      newErrors.login = "Username is invalid";
-      valid = false;
-    }
+  //   if (!formData.login) {
+  //     newErrors.login = "Username is invalid";
+  //     valid = false;
+  //   }
     
 
-    if (!formData.password) {
-      newErrors.password = "Password is invalid";
-      valid = false;
-    }
+  //   if (!formData.password) {
+  //     newErrors.password = "Password is invalid";
+  //     valid = false;
+  //   }
 
-    setErrors(newErrors);
-    return valid;
-  };
+  //   setErrors(newErrors);
+  //   return valid;
+  // };
 
   return (
     <div
@@ -198,7 +199,7 @@ function MyComponent() {
                 style={{
                   borderColor: "transparent",
                   borderRadius: "5px",
-                  onClick:{handleNavigation},
+                  onClick:{handleNavigationTo},
                 }}
                 type="submit"
               >
