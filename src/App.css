@@ -3,10 +3,15 @@
 .main {
     background-color: #0B3866;
     width: 100%;
+   
 }
 
+
 .section {
-    background-color: gainsboro;
-    width: 100%;
-    top: 0%;
+
+   margin-left: 79px;
+
+}
+.sideb{
+    position: fixed;
 }

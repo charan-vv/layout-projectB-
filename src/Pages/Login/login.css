@@ -1,0 +1,45 @@
+.Login{
+    color:white;
+    text-align: center;
+    font-size: 15px;
+    .Logbtn{
+        background-color: #FE7720;
+        width: 100%;
+        height: 35px;
+        color: white;
+    }
+    .logForm{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .react-international-phone-country-selector-button{
+        width: 100%;
+       
+    }
+    .react-international-phone-input-container{
+        width: 100%;
+    }
+    .react-international-phone-input{
+        width: 100%;
+    }
+    
+}
+
+.register{
+    font-size: 17px;
+    /* phoneInput.css */
+
+.phone-input-container {
+    width: 193px;
+  }
+  
+  .phone-input-container input {
+    width: 100%;
+    border-radius: 5px;
+    border-color: transparent;
+    margin-top: 15px;
+  }
+  
+}
