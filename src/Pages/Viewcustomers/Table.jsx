@@ -9,7 +9,7 @@ import Add from "../../assets/photo/add.svg";
 import Close from "../../assets/photo/close.svg";
 import "../../Pages/Addcustomer/customer.css";
 import Search from "../../assets/photo/search.svg";
-import Pagination from "../../Component/Pagination/pagination";
+import Pagination from "../../Component/Pagination/Pagination";
 
 function Table() {
   const dispatch = useDispatch();
